@@ -7,18 +7,18 @@ interface Props {
 }
 
 export default function OrderContextProvider({ children }: Props) {
-	const [menuItems, setMenuItems] = useState<Item[]>([]);
+	const [orders, setOrders] = useState<Item[]>([]);
 
 	function addItem(item: Item): void {
-		setMenuItems((prev) => [...prev, item]);
+		setOrders((prev) => [...prev, item]);
 	}
 
-	function deleteItem(id: string): void {
-		setMenuItems(menuItems.filter((item) => item.id !== id));
+	function removeItem(id: string): void {
+		setOrders(orders.filter((item) => item.id !== id));
 	}
 
 	return (
-		<OrderContext.Provider value={{ menuItems, addItem, deleteItem }}>
+		<OrderContext.Provider value={{ orders, addItem, removeItem }}>
 			{children}
 		</OrderContext.Provider>
 	);
