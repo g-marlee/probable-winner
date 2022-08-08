@@ -1,5 +1,3 @@
-import { useContext, useState } from "react";
-import OrderContext from "../context/OrderContext";
 import { Item } from "../types";
 
 interface MenuItemProps {
@@ -7,8 +5,6 @@ interface MenuItemProps {
 }
 
 export function MenuItem({ item }: MenuItemProps) {
-	const { addItem } = useContext(OrderContext);
-
 	return (
 		<div>
 			<li>Name: {item.name}</li>
@@ -16,7 +12,6 @@ export function MenuItem({ item }: MenuItemProps) {
 			<p>Calories: {item.calories}</p>
 			<p>Price: {item.price}</p>
 			<p>{item.vegetarian}</p>
-			<button onClick={() => addItem(item)}>Add to Order</button>
 		</div>
 	);
 }

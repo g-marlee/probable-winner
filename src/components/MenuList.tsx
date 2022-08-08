@@ -1,8 +1,7 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import OrderContext from "../context/OrderContext";
 import { Item } from "../types";
 import { MenuItem } from "./MenuItem";
-
-interface MenuListProps {}
 
 export function MenuList() {
 	const [menuList, setMenuList] = useState<Item[]>([
@@ -71,11 +70,31 @@ export function MenuList() {
 		},
 	]);
 
+	const { orders, addItem, removeItem } = useContext(OrderContext);
+
+	function addToOrderHandler(item: Item) {
+		addItem(item);
+	}
+
+	function removeFromOrderHandler(item: Item) {
+		removeItem(item.id);
+	}
+
 	return (
 		<div>
 			<ul>
 				{menuList.map((item) => (
-					<MenuItem key={item.id} item={item} />
+					<li>
+						<MenuItem key={item.id} item={item} />
+						<button onClick={() => addToOrderHandler(item)}>
+							Add to Order
+						</button>
+						{orders.indexOf(item) !== -1 ? (
+							<button onClick={() => removeFromOrderHandler(item)}>
+								Remove
+							</button>
+						) : null}
+					</li>
 				))}
 			</ul>
 		</div>
